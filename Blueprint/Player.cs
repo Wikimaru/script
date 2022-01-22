@@ -5,7 +5,8 @@ using UnityEngine;
 public abstract class Player : MonoBehaviour
 {
     //player_Status
-    [SerializeField]protected float currentHP,currentMaxHP, maxHp;
+    [SerializeField]protected float currentHP,currentblood, maxHp;
+    [SerializeField] protected float currentMana,currentSoul,maxMana;
     [SerializeField] protected float attackSpeed,baseAttackSpeed;
     [SerializeField] protected float baseArmor,baseResistance;
     protected float currentArmor,currentResistance,currentAttackSpeed;

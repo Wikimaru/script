@@ -108,5 +108,6 @@ public abstract class Spell : MonoBehaviour
         Instantiate(spellpickup, transform.position, transform.rotation);
         Disable();
         Destroy(this.gameObject);
+        
     }
 }
