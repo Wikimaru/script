@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Player : MonoBehaviour
+public abstract class Player : MonoBehaviour,Damageable
 {
     //player_Status
     [SerializeField]protected float currentHP,currentblood, maxHp;
@@ -50,6 +50,8 @@ public abstract class Player : MonoBehaviour
         }
         GameManager.instance.player = this;
         GameManager.instance.playerGameObject = this.gameObject;
+        currentArmor = baseArmor;
+        currentResistance = baseResistance;
     }
     protected virtual void playerMovement() 
     {
@@ -144,6 +146,13 @@ public abstract class Player : MonoBehaviour
     }
     protected void playerActionController() 
     {
+        //==========Debug=============//
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            TakeDamage(20, 10, GameManager.DamageType.physical);
+        }
+        //============================//
         if (Input.GetKeyDown(KeyCode.Space) || ControllerManager.attackbutton.isFingerDown)
         {
             playerAttack(attackSpeed);
@@ -357,6 +366,23 @@ public abstract class Player : MonoBehaviour
             this.spell = spellClone;
             this.spell.setup(this);
         }
+    }
+
+    public void TakeDamage(float damage, float bleed, GameManager.DamageType type) 
+    {
+        switch (type) 
+        {
+            case GameManager.DamageType.physical:
+                currentHP -= damage*physicalDamage(currentArmor,damage);
+                currentblood -= damage*physicalDamage(currentArmor, damage) * (bleed / 100);
+                Debug.Log("Damage" + damage*physicalDamage(currentArmor, damage));
+                break;
+            case GameManager.DamageType.magical:
+                currentHP -= damage*magicalDamage(currentResistance, damage);
+                currentblood -= damage* magicalDamage(currentArmor, damage) * (bleed / 100);
+                break;
+        }
+        GameManager.instance.Update_health(currentHP, currentblood, maxHp);
     }
 
     private void OnDrawGizmosSelected()

@@ -35,3 +35,5 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Scenes/SampleScene.unity
+Scenes/SampleScene.unity

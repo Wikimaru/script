@@ -8,7 +8,11 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] protected Animator weaponAnimator;
     [SerializeField] protected SpriteRenderer weaponSprite;
     [SerializeField] protected GameObject weaponPickup;
-    [SerializeField] protected float baseAttackTime;
+    [SerializeField] protected float baseAttackTime,damage,sharpness;
+    [SerializeField] protected float attackArea;
+    [SerializeField] protected GameManager.DamageType Damagetype;
+    [SerializeField] protected Transform attackPos;
+    [SerializeField] protected LayerMask whatIsEnemies;
     protected float attackcounter;
 
     [SerializeField] protected bool isEquip;
